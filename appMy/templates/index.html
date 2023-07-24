@@ -1,0 +1,110 @@
+{% extends 'base.html' %} <!-- yönlendirir/gönderir -->
+{% load static %}
+
+
+{% block main %}
+<main>
+    <div class="container">
+        <div class="row" style="height: 400px; box-shadow: 0px 4px 8px -4px #00000030;">
+            <div class="col-6 d-flex align-items-center">
+                <div class="getstart">
+                    <img src="{% static 'img/dino.svg' %}" alt="" width="100px"
+                        style="position: relative; transform: rotateY(180deg);">
+                    <h3>Nerden Başlıyoruz</h3>
+                    <div class="btn btn-primary my-3">
+                        Get start
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <img src="{% static 'img/inek.svg' %}" alt="" width="100%" height="400px">
+            </div>
+        </div>
+        <div class="row mt-3">
+
+            {% for i in news2 %}
+            <div class="col-6 {% if forloop.counter|divisibleby:2 %}d-flex justify-content-end{% endif %}">
+                <a href="/detail/{{ i.id }}">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4 {% if forloop.counter|divisibleby:2 %}order-1{% endif %}">
+                                <img src="{{ i.image.url }}" style="width: 100%; height: 300px; object-fit: cover;"
+                                    alt="Trendy Pants and Shoes" class="img-fluid rounded-start" />
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ i.title }}</h5>
+                                    <p class="card-text">
+                                        {{ i.text|truncatechars:"50" }}
+                                    </p>
+
+                                    {% if i.category.title == "Free" %}
+                                    <p class="card-text text-success fs-3">Bedava</p>
+
+                                    {% else %}
+                                    <p class="card-text text-success fs-3">{{ i.price }} tl</p>
+
+                                    {% endif %}
+
+                                    <p class="card-text">
+                                        <small class="text-muted">{{ i.date_now }}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            {% endfor %}
+        </div>
+        <!-- CARDS -->
+        <div class="row mt-5">
+            <div class="row col-9 g-3">
+                <h3>Kartlar</h3>
+
+                {% for i in news4 %}
+                <div class="col-6">
+                    <div class="card">
+                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                            <img src="{{ i.image.url }} " class="img-fluid"
+                                style="width: 100%; height: 300px; object-fit: cover;" />
+                            <a href="/detail/{{ i.id }}">
+                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ i.title }}</h5>
+                            <p class="card-text">{{ i.text | truncatechars:"50" }}</p>
+                            {% if i.category.title == "Free" %}
+                            <p class="card-text text-success fs-3">Bedava</p>
+
+                            {% else %}
+                            <p class="card-text text-success fs-3">{{ i.price }} tl</p>
+
+                            {% endif %}
+                            <a href="#!" class="btn btn-primary">Button</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-3">
+                <h3 class="">Kategori</h3>
+                <ol class="list-group list-group-light list-group-numbered">
+                    {% for i in category %}
+                    <a href="/category/{{ i.title }}">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ i.title }}</div>
+                            </div>
+                            <span class="badge badge-primary rounded-pill">14</span>
+                        </li>
+                    </a>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock main %}

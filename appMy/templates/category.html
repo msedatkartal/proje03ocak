@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block main %}
+<main>
+    <div class="container">
+          <!-- CARDS -->
+          <div class="row mt-5">
+            <div class="row col-9 g-3">
+                <h3>Kartlar</h3>
+
+                {% for i in cards %}
+                <div class="col-6">
+                    <div class="card">
+                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                            <img src="{{ i.image.url }} " class="img-fluid"
+                                style="width: 100%; height: 300px; object-fit: cover;" />
+                            <a href="/detail/{{ i.id }}">
+                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ i.title }}</h5>
+                            <p class="card-text">{{ i.text | truncatechars:"50" }}</p>
+                            {% if i.category.title == "Free" %}
+                            <p class="card-text text-success fs-3">Bedava</p>
+                            {% else %}
+                            <p class="card-text text-success fs-3">{{ i.price }} tl</p>
+
+                            {% endif %}
+                            <a href="#!" class="btn btn-primary">Button</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-3">
+                <h3 class="">Kategori</h3>
+                <ol class="list-group list-group-light list-group-numbered">
+                    {% for i in category %}
+                    <a href="/category/{{ i.title }}">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ i.title }}</div>
+                            </div>
+                            <span class="badge badge-primary rounded-pill">14</span>
+                        </li>
+                    </a>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+</main>
+    
+{% endblock main %}
+    

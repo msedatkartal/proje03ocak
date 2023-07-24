@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block main %}
+<main>
+    <div class="container">
+        <a href="/detail/{{ card.id }}">
+            <div class="card mb-3">
+                <img src="{{ card.image.url }}" class="card-img-top" alt="Wild Landscape" />
+                <div class="card-body">
+                    <h5 class="card-title">{{ card.title }}</h5>
+                    <p class="card-text">
+                        {{ card.text }}
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">{{ card.price }} TL</small>
+                    </p>
+                </div>
+            </div>
+        </a>
+
+        <!-- Comment -->
+        <div class="card">
+            <div class="card-header">
+                
+                {% for i in comments %}
+                <div class="comment d-flex">
+                    <h5 style="min-width: 180px;">{{ i.fname }}</h5> <br>
+                    <p class="ms-5 ps-5 border-start" style="min-height:100px;">{{ i.text }}</p>
+                </div>
+                {% endfor %}
+                    
+            </div>
+            <div class="card-body">
+                <form  method="POST">
+                    {% csrf_token %}
+                    <input class="form-control my-2" type="text" placeholder="İsim Soyisim" name="fname">
+                    <textarea class="form-control my-2" name="text" placeholder="Yorum" cols="30" rows="10"></textarea>
+                    <button type="submit" class="btn btn-dark my-2">Gönder</button>
+                </form>
+            </div>
+            <div class="card-body"></div>
+        </div>
+
+    </div>
+
+</main>
+{% endblock main %}
